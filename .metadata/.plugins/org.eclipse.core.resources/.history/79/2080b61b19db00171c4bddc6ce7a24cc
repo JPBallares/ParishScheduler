@@ -28,7 +28,7 @@ public class ParishSchedulerController {
 	}
 	
 	public void createSchedule(String time, String day, String type, String priestID) throws Exception{
-		sql = "Insert into `masssched` (`time`,`day`,`mass_type`,`priest_id`) values (?,?,?,?)";
+		sql = "Insert into `masssched` (`time`,`day`,`mass_type`,`priestID`) values (?,?,?,?)";
 		ps = connection.prepareStatement(sql);
 		ps.setString(1, time);
 		ps.setString(2, day);

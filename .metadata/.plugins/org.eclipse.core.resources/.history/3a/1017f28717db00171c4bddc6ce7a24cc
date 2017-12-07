@@ -17,23 +17,17 @@ public class ParishSchedulerController {
         connection = DriverManager.getConnection(url, user, pass);
     }
 	
-	public void createIntension(String type, String toName, String fromName,String timeSchedID) throws Exception{
+	public void createIntension(String type, String toName, String fromName,String timeSched) throws Exception{
 		sql = "Insert into `intention` (`type`,`for_name`,`from_name`,`time_sched`) values(?,?,?,?)";
 		ps = connection.prepareStatement(sql);
 		ps.setString(1, type);
 		ps.setString(2, toName);
 		ps.setString(3, fromName);
-		ps.setString(4, timeSchedID);
+		ps.setString(4, timeSched);
 		ps.execute();
 	}
 	
-	public void createSchedule(String time, String day, String type, String priestID) throws Exception{
-		sql = "Insert into `masssched` (`time`,`day`,`mass_type`,`priest_id`) values (?,?,?,?)";
-		ps = connection.prepareStatement(sql);
-		ps.setString(1, time);
-		ps.setString(2, day);
-		ps.setString(3, type);
-		ps.setString(4, priestID);
-		ps.execute();
+	public void createSchedule(String type, String time, String day,String priestID){
+		sql = "Insert into `masssched` (``,``,``,``,``) values (?,?,?,?,?)";
 	}
 }
