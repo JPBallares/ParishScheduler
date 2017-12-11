@@ -39,6 +39,8 @@ public class ParishSchedulerController {
 	}
 	
 	public void createPriestInfo(String lastName, String firstName, String middleInitial) throws Exception{
+		/*just edit the sql which will contain the statement that will insert another record to the db
+		the codes above will serve as guide*/
 		sql = "";
 		ps = connection.prepareStatement(sql);
 		ps.execute();
