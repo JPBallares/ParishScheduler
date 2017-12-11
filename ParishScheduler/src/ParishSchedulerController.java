@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -36,4 +37,29 @@ public class ParishSchedulerController {
 		ps.setString(4, priestID);
 		ps.execute();
 	}
+	
+	public void createPriestInfo(String lastName, String firstName, String middleInitial) throws Exception{
+		sql = "";
+		ps = connection.prepareStatement(sql);
+		ps.execute();
+	}
+	
+	public void close() {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (ps != null) {
+            	ps.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }
