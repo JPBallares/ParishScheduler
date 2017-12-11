@@ -35,17 +35,17 @@ CREATE TABLE IF NOT EXISTS `intention` (
   `in_id` int(4) NOT NULL,
   `kind` varchar(15) DEFAULT NULL,
   `for_name` varchar(256) NOT NULL,
-  `from_name` varchar(256) DEFAULT NULL,
+  `message` varchar(256) DEFAULT NULL,
   `time_sched` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`in_id`),
-  UNIQUE KEY `type_UNIQUE` (`type`),
-  CONSTRAINT `FK_SchedID` FOREIGN KEY (`schedid`)
-  REFERENCES `masssched`(`schedid`)
+  UNIQUE KEY `kind_UNIQUE` (`kind`)
+  -- CONSTRAINT `FK_TimeSched` FOREIGN KEY (`schedid`)
+  -- REFERENCES `masssched`(`schedid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `intention` (`in_id`, `kind`, `for_name`, `from_name`) VALUES
-('AA', 'Thanksgiving Mass', 'Michael Jackson', 'Juan Dela Cruz','11:00 AM - 12:00 NN'),
-('AB', 'Prayer for the Soul', 'Jose Rizal', 'Baby Girl','01:00 PM - 02:00 PM');
+#INSERT INTO `intention` (`in_id`, `kind`, `for_name`, `from_name`) VALUES
+#('AA', 'Thanksgiving Mass', 'Michael Jackson', 'Juan Dela Cruz','11:00 AM - 12:00 NN'),
+#('AB', 'Prayer for the Soul', 'Jose Rizal', 'Baby Girl','01:00 PM - 02:00 PM');
 
 -- --------------------------------------------------------
 
@@ -58,18 +58,18 @@ CREATE TABLE IF NOT EXISTS `masssched` (
   `mass_type` varchar(50) DEFAULT NULL,
   `priest_id` int(4) NOT NULL,
   PRIMARY KEY (`schedid`),
-  UNIQUE KEY `time_UNIQUE` (`time`),
-  CONSTRAINT `FK_PriestID` FOREIGN KEY (`priest_id`)
-  REFERENCES `priest`(`priest_id`)
+  UNIQUE KEY `time_UNIQUE` (`time`)
+  -- CONSTRAINT `FK_PriestID` FOREIGN KEY (`priest_id`)
+  -- REFERENCES `priest`(`priest_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_number`
 --
 
-INSERT INTO `masssched` (`schedid`, `time`,`day`, `mass_type`, `priest_id`) VALUES
-('S001', '07:00 AM - 08:00 AM','Regular', 'P001'),
-('S002', '05:00 PM - 06:00 PM','Regular','P002');
+#INSERT INTO `masssched` (`schedid`, `time`,`day`, `mass_type`, `priest_id`) VALUES
+#('S001', '07:00 AM - 08:00 AM','Regular', 'P001'),
+#('S002', '05:00 PM - 06:00 PM','Regular','P002');
 
 
 --
@@ -88,9 +88,16 @@ CREATE TABLE IF NOT EXISTS `priest` (
 --
 -- Constraints for table `person_number`
 --
-ALTER TABLE `person_number`
-  ADD CONSTRAINT `fk_name` FOREIGN KEY (`name`) REFERENCES `person` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+-- ALTER TABLE `person_number`
+  -- ADD CONSTRAINT `fk_name` FOREIGN KEY (`name`) REFERENCES `person` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- COMMIT;
+
+DROP TABLE IF EXISTS `mass_intentions`;
+CREATE TABLE IF NOT EXISTS `mass_intentions` (
+  `in_id` int(4) NOT NULL,
+  `schedid` int(4) NOT NULL,
+  PRIMARY KEY (`in_id`, `schedid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
