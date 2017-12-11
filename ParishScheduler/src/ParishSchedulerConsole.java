@@ -21,6 +21,21 @@ public class ParishSchedulerConsole {
 	
 	/**
 	 * 
+	 */
+	public static void enterSchedule() {
+		String startTime;
+		do {
+			System.out.println("Example: 7:00 AM");
+			System.out.print("Enter start time : ");
+			startTime = kbd.nextLine();
+		} while (checkTime(startTime.toUpperCase()) == false);
+		
+		System.out.print("Enter Priest name : ");
+		String priestName = kbd.nextLine();
+	}
+	
+	/**
+	 * 
 	 * @return
 	 */
 	public static int showParishMenu() {
@@ -54,21 +69,6 @@ public class ParishSchedulerConsole {
 			case 4:
 				System.exit(0);
 		}
-	}
-	
-	/**
-	 * 
-	 */
-	public static void enterSchedule() {
-		String startTime;
-		do {
-			System.out.println("Example: 7:00 AM");
-			System.out.print("Enter start time : ");
-			startTime = kbd.nextLine();
-		} while (checkTime(startTime.toUpperCase()) == false);
-		
-		System.out.print("Enter Priest name : ");
-		String priestName = kbd.nextLine();
 	}
 	
 	/**
