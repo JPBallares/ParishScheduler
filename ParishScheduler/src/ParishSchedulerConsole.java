@@ -115,11 +115,10 @@ public class ParishSchedulerConsole {
 			System.out.print("Enter Priest name (Ex. Sales, Gilbert): ");
 			priest = kbd.nextLine();
 			String[] name = priest.split(",");
-			
 			try {
 				rs = controller.getPriestInfo(name[0].trim(), name[1].trim());
 				if (getResTotal(rs) == 0) {
-					System.out.println("error: Priest not found. Please enter an existing priest.");
+					System.out.println("Priest not found. Please enter an existing priest.");
 					notValid = true;
 				} else {
 					notValid = false;
@@ -130,10 +129,26 @@ public class ParishSchedulerConsole {
 			}
 		} while (notValid);
 		
+		ResultSet schedRs = null;
+		String schedID = "";
+		try {
+			schedRs = controller.getAllSched();
+			if (getResTotal(schedRs) == 0) {
+				schedID = "S001";
+			} else {
+				schedRs.last();
+				schedID = schedRs.getString("schedid");
+				schedID = "S" + String.format("%03d", (Integer.parseInt(schedID.substring(1))+1));
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		try {
 			rs.next();
-			controller.createSchedule("S002",startTime, date, massType, rs.getString("priest_id"));
+			controller.createSchedule(schedID,startTime, date, massType, rs.getString("priest_id"));
 			System.out.println("New schedule was successfully added.");
 			System.out.println();
 			System.out.println("Summary of Schedule that added");

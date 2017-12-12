@@ -55,6 +55,12 @@ public class ParishSchedulerController {
         return ps.executeQuery();
 	}
 	
+	public ResultSet getAllSched() throws Exception {
+		statement = connection.createStatement();
+        sql = "select * from masssched";
+        return statement.executeQuery(sql);
+	}
+	
 	public void close() {
         try {
             if (resultSet != null) {
