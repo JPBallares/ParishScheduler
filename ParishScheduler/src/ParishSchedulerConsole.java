@@ -2,11 +2,6 @@ import java.util.*;
 public class ParishSchedulerConsole {
 	private static Scanner kbd = new Scanner(System.in);
 	
-	/**
-	 * 
-	 * @param time
-	 * @return
-	 */
 	public static boolean checkTime(String time) {
 		boolean flag = false;
 		String[] t = time.split(":");
@@ -19,9 +14,6 @@ public class ParishSchedulerConsole {
 		return flag;
 	}
 	
-	/**
-	 * 
-	 */
 	public static void enterSchedule() {
 		String startTime;
 		do {
@@ -34,10 +26,6 @@ public class ParishSchedulerConsole {
 		String priestName = kbd.nextLine();
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public static int showParishMenu() {
 		int choice;
 		System.out.println("========================================================");
@@ -52,9 +40,6 @@ public class ParishSchedulerConsole {
 		return choice;
 	}
 	
-	/**
-	 * 
-	 */
 	public static void run() {
 		int choice;
 		choice = showParishMenu();
@@ -71,10 +56,6 @@ public class ParishSchedulerConsole {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		ParishSchedulerConsole ps;
 		try{
