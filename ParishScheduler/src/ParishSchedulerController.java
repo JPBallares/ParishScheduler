@@ -47,12 +47,12 @@ public class ParishSchedulerController {
 		ps.execute();
 	}
 	
-	public ResultSet getPriest(String priestLName, String priestFName) throws Exception {
+	public ResultSet getPriestInfo(String priestLName, String priestFName) throws Exception {
         sql = "select * from priest where f_name = ? and l_name = ?";
         ps = connection.prepareStatement(sql);
         ps.setString(1, priestFName);
         ps.setString(2, priestLName);
-        return ps.executeQuery(sql);
+        return ps.executeQuery();
 	}
 	
 	public void close() {
