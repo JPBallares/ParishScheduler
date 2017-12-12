@@ -28,13 +28,14 @@ public class ParishSchedulerController {
 		ps.execute();
 	}
 	
-	public void createSchedule(String time, String day, String type, String priestID) throws Exception{
-		sql = "Insert into `masssched` (`time`,`day`,`mass_type`,`priest_id`) values (?,?,?,?)";
+	public void createSchedule(String schedId, String time, String date, String type, String priestID) throws Exception{
+		sql = "INSERT INTO `masssched` (`schedid`, `time`, `date`, `mass_type`, `priest_id`) VALUES (?, ?, ?, ?, ?);";
 		ps = connection.prepareStatement(sql);
-		ps.setString(1, time);
-		ps.setString(2, day);
-		ps.setString(3, type);
-		ps.setString(4, priestID);
+		ps.setString(1, schedId);
+		ps.setString(2, time);
+		ps.setString(3, date);
+		ps.setString(4, type);
+		ps.setString(5, priestID);
 		ps.execute();
 	}
 	
@@ -44,6 +45,14 @@ public class ParishSchedulerController {
 		sql = "";
 		ps = connection.prepareStatement(sql);
 		ps.execute();
+	}
+	
+	public ResultSet getPriest(String priestLName, String priestFName) throws Exception {
+        sql = "select * from priest where f_name = ? and l_name = ?";
+        ps = connection.prepareStatement(sql);
+        ps.setString(1, priestFName);
+        ps.setString(2, priestLName);
+        return ps.executeQuery(sql);
 	}
 	
 	public void close() {
