@@ -78,6 +78,32 @@ public class ParishSchedulerConsole {
 	public static String checkDay(String str) {
 		return "";
 	}
+	
+	private static void printMassSched(ResultSet rs) {
+    	try {
+    		if (getResTotal(rs) == 0) { 
+    			System.out.println("Error: name not found!!!");
+    		} else {
+    			printDivider();
+    			System.out.printf("     %-15s %-20s %-15s %-10s %n",
+    	        		"Time","Date","Name", "Type");
+    			int row = 1;
+    			while (rs.next()) {
+    				String time = rs.getString("time");
+    	            String date = rs.getString("date");
+    	            String name = rs.getString("name");
+    	            String type = rs.getString("type");
+    	            int type = rs.getInt("home");
+    	            System.out.printf("%-4d %-15s %-20s %-15s %-10s %n",
+    	            		row++,time,date,name,type);    	        
+    			}    			
+    		}
+
+    		System.out.println();
+    	} catch (Exception e) {
+    		System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+    	}
+    }
 
 	public static void enterSchedule() {
 		String startTime;
