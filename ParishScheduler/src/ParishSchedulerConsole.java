@@ -43,7 +43,12 @@ public class ParishSchedulerConsole {
 		int choice;
 		choice = showParishMenu();
 		switch (choice) {
-		case 1:
+		case 1: try {
+				printMassSched(controller.getMassSched());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case 2:
 			break;
@@ -84,18 +89,16 @@ public class ParishSchedulerConsole {
     		if (getResTotal(rs) == 0) { 
     			System.out.println("Error: name not found!!!");
     		} else {
-    			printDivider();
-    			System.out.printf("     %-15s %-20s %-15s %-10s %n",
-    	        		"Time","Date","Name", "Type");
+    			System.out.printf("     %-12s %-10s %-20s %-15s %n",
+    	        		"Date","Time","Scheduled Priest", "Type");
     			int row = 1;
     			while (rs.next()) {
     				String time = rs.getString("time");
     	            String date = rs.getString("date");
     	            String name = rs.getString("name");
-    	            String type = rs.getString("type");
-    	            int type = rs.getInt("home");
-    	            System.out.printf("%-4d %-15s %-20s %-15s %-10s %n",
-    	            		row++,time,date,name,type);    	        
+    	            String type = rs.getString("mass_type");
+    	            System.out.printf("%-4d %-12s %-10s %-20s %-15s %n",
+    	            		row++,date,time,name,type);    	        
     			}    			
     		}
 

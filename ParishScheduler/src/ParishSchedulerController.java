@@ -65,14 +65,9 @@ public class ParishSchedulerController {
         return statement.executeQuery(sql);
 	}
 	
-	public ResultSet getAllSched() throws Exception {
-		statement = connection.createStatement();
-        sql = "select * from masssched";
-        return statement.executeQuery(sql);
-	}
 	public ResultSet getMassSched() throws Exception {
 		statement = connection.createStatement();
-        sql = "select date, time, mass_type, concat(f_name," ",l_name) from masssched natural join priest";
+        sql = "select date, time, mass_type, concat(f_name,\" \",l_name) as name from masssched natural join priest order by 1,2";
         return statement.executeQuery(sql);
 	}
 	
