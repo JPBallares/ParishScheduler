@@ -1,9 +1,8 @@
 import java.util.*;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import java.sql.*;
+// import java.sql.*;
 
 public class ParishSchedulerConsole {
-	private static ParishSchedulerController controller;
+	//private static ParishSchedulerControllerTest controller;
 	private static Scanner kbd = new Scanner(System.in);
 
 	public static boolean checkTime(String time) {
@@ -18,7 +17,24 @@ public class ParishSchedulerConsole {
 		return flag;
 	}
 	
-	public static String checkDay(String str) {
+	public static String checkDay() {
+		boolean flag = false;
+		String str = kbd.nextLine();
+		while (flag == false) {
+			if (str.equalsIgnoreCase("Monday") || str.equalsIgnoreCase("Tuesday") || str.equalsIgnoreCase("Wednesday")  || 
+				str.equalsIgnoreCase("Thursday") || str.equalsIgnoreCase("Friday") || str.equalsIgnoreCase("Saturday") || 
+				str.equalsIgnoreCase("Sunday")) {
+					flag = true;
+			} else {
+				System.out.println("Invalid day. (Monday, Tueday, Wednesday, Thursday, Firday, Saturday, Sunday)");
+				System.out.print("Enter day : ");
+				str = kbd.nextLine();
+			}
+		}
+		return str;
+	}
+	
+	public static String checkType() {
 		return "";
 	}
 	
@@ -30,12 +46,15 @@ public class ParishSchedulerConsole {
 		} while (checkTime(startTime.toUpperCase()) == false);
 		
 		System.out.print("Enter day (Ex. Monday): ");
-		String day = kbd.nextLine();
+		String day = checkDay();
+		
 		System.out.print("Enter mass type : ");
 		String massType = kbd.nextLine();
+		
 		System.out.print("Enter Priest name (Ex. Fr. Sales): ");
 		String priest = kbd.nextLine();
 		
+		/*
 		try {
 			controller.createSchedule(startTime, day, massType, priest);
 			System.out.println("New schedule was successfully added.");
@@ -51,6 +70,7 @@ public class ParishSchedulerConsole {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
 		
 	}
 	
@@ -96,18 +116,14 @@ public class ParishSchedulerConsole {
 	
 	public static void main(String[] args) {
 		ParishSchedulerConsole psct;
-		 controller = new ParishSchedulerController();
-		 try {   
-			 String url = "jdbc:mysql://localhost/contact?useSSL=false";
-			 controller.dbaseConnect(url,"root",null);
-			 psct = new ParishSchedulerConsole();
+		//controller = new ParishSchedulerControllerTest();
+		try {   
+			//String url = "jdbc:mysql://localhost/contact?useSSL=false";
+			//controller.dbaseConnect(url,"root",null);
+			psct = new ParishSchedulerConsole();
 			 psct.run();
-	     } catch (SQLException e) {
-	    	 System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
 	     } catch (Exception e) {
 	    	 System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
-	     } finally {
-	    	 controller.close();
 	     }
 	}
 }
