@@ -47,6 +47,10 @@ public class ParishSchedulerController {
 		ps.execute();
 	}
 	
+	public void createMassIntention(String intentionID, String schedID) {
+		
+	}
+	
 	public ResultSet getPriestInfo(String priestLName, String priestFName) throws Exception {
         sql = "select * from priest where f_name = ? and l_name = ?";
         ps = connection.prepareStatement(sql);
@@ -60,6 +64,7 @@ public class ParishSchedulerController {
         sql = "select * from masssched";
         return statement.executeQuery(sql);
 	}
+	
 	
 	public void close() {
         try {
