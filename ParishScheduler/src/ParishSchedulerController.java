@@ -66,6 +66,7 @@ public class ParishSchedulerController {
 	}
 	
 	
+	
 	public void close() {
         try {
             if (resultSet != null) {

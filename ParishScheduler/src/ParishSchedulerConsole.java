@@ -158,7 +158,7 @@ public class ParishSchedulerConsole {
 			System.out.println("Mass Priest : " + priest);
 		} catch(MySQLIntegrityConstraintViolationException x) {
 			// code for checking if schedule is already exist
-			System.out.println("");
+			System.out.println("Schedule already exist");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
