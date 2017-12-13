@@ -31,6 +31,8 @@ public class ParishSchedulerController {
 	}
 	
 	public void createPriestInfo(String priestID, String lastName, String firstName) throws Exception{
+		/*just edit the sql which will contain the statement that will insert another record to the db
+		the codes above will serve as guide*/
 		sql = "INSERT INTO `priest` (`priest_id`, `f_name`, `l_name`) VALUES (?, ?, ?);";
 		ps = connection.prepareStatement(sql);
 		ps.setString(1, priestID);
@@ -68,12 +70,6 @@ public class ParishSchedulerController {
 	public ResultSet getAllSched() throws Exception {
 		statement = connection.createStatement();
         sql = "select * from masssched";
-        return statement.executeQuery(sql);
-	}
-	
-	public ResultSet getAllPriest() throws Exception {
-		statement = connection.createStatement();
-        sql = "select * from priest";
         return statement.executeQuery(sql);
 	}
 	

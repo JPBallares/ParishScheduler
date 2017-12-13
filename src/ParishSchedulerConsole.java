@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class ParishSchedulerConsole {
 	private static ParishSchedulerController controller;
-	private static Scanner scan = new Scanner(System.in);
+	private static Scanner kbd = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		ParishSchedulerConsole psct;
@@ -35,7 +35,7 @@ public class ParishSchedulerConsole {
 		System.out.printf("%1s%5s%47s", "= ", "5. Exit ", "=\n");
 		System.out.println("========================================================");
 		System.out.print("  Enter choice: ");
-		choice = scan.nextInt();
+		choice = kbd.nextInt();
 		return choice;
 	}
 
@@ -60,7 +60,7 @@ public class ParishSchedulerConsole {
 			System.out.println("========================================================");
 			System.out.println("                   Enter New Schedule");
 			System.out.println("========================================================");
-			scan.nextLine();
+			kbd.nextLine();
 			enterSchedule();
 			System.out.println("========================================================");
 			break;
@@ -97,7 +97,7 @@ public class ParishSchedulerConsole {
 		boolean notValid = false;
 		do {
 			System.out.print("Enter start time (Ex. 7:00, 16:00): ");
-			startTime = scan.nextLine();
+			startTime = kbd.nextLine();
 			if (!startTime.matches("[0-9]{1,2}:[0-9]{2}")) {
 				notValid = true;
 				System.out.println("Not a valid time!");
@@ -110,7 +110,7 @@ public class ParishSchedulerConsole {
 		String date;
 		do {
 			System.out.print("Enter date (YYYY-MM-DD): ");
-			date = scan.nextLine();
+			date = kbd.nextLine();
 			if (!date.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
 				notValid = true;
 				System.out.println("Not a valid date!");
@@ -120,13 +120,13 @@ public class ParishSchedulerConsole {
 		} while (notValid);
 
 		System.out.print("Enter mass type : ");
-		String massType = scan.nextLine();
+		String massType = kbd.nextLine();
 
 		String priest;
 		ResultSet rs = null;
 		do {
 			System.out.print("Enter Priest name (Ex. Sales, Gilbert): ");
-			priest = scan.nextLine();
+			priest = kbd.nextLine();
 			String[] name = priest.split(",");
 			try {
 				rs = controller.getPriestInfo(name[0].trim(), name[1].trim());
@@ -198,7 +198,7 @@ public class ParishSchedulerConsole {
 		do {
 			do {
 				System.out.print("Enter time of mass for the intention(Ex. 7:00, 16:00): ");
-				time = scan.next();
+				time = kbd.next();
 				if (!time.matches("[0-9]{1,2}:[0-9]{2}")) {
 					notValid = true;
 					System.out.println("Not a valid time!");
@@ -211,7 +211,7 @@ public class ParishSchedulerConsole {
 			String date;
 			do {
 				System.out.print("Enter date of mass for the intention(YYYY-MM-DD): ");
-				date = scan.next();
+				date = kbd.next();
 				if (!date.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
 					notValid = true;
 					System.out.println("Not a valid date!");
@@ -240,11 +240,11 @@ public class ParishSchedulerConsole {
 		} while (notValid);
 
 		System.out.print("For whom this intentions is (ex. Juan Dela Cruz): ");
-		to = scan.nextLine();
+		to = kbd.nextLine();
 		System.out.print("Kind of intention : ");
-		kind = scan.nextLine();
+		kind = kbd.nextLine();
 		System.out.print("Message : ");
-		message = scan.nextLine();
+		message = kbd.nextLine();
 		ResultSet rs = null;
 
 		try {
@@ -265,31 +265,6 @@ public class ParishSchedulerConsole {
 		System.out.println("Successfully added.");
 	}
 
-	public static void addNewPriest() {
-		String priestID = "";
-		String name = "";
-		System.out.print("Enter the priest name (ex. Burgos, Jose): ");
-		name = scan.nextLine();
-		String[] splittedName = name.split(",");
-		
-		ResultSet rs = null;
-		
-		try {
-			rs = controller.getAllPriest();
-			priestID = incrementID(rs, "P");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			controller.createPriestInfo(priestID, splittedName[0].trim(), splittedName[1].trim());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	private static int getResTotal(ResultSet rs) throws Exception {
 		int count = 0;
 		rs.last();
