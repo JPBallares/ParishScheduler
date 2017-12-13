@@ -34,12 +34,13 @@ public class ParishSchedulerConsole {
 		System.out.println("========================================================");
 		System.out.printf("%1s%5s%34s", "= ", "1. View Mass Schedule", "=\n");
 		System.out.printf("%1s%5s%32s", "= ", "2. View Priest Schedule", "=\n");
-		System.out.printf("%1s%5s%32s", "= ", "3. Create New Schedule ", "=\n");
-		System.out.printf("%1s%5s%25s", "= ", "4. Schedule intention for mass", "=\n");
-		System.out.printf("%1s%5s%37s", "= ", "5. Add New Priest ", "=\n");
-		System.out.printf("%1s%5s%45s", "= ", "6. Update ", "=\n");
-		System.out.printf("%1s%5s%45s", "= ", "7. Delete ", "=\n");
-		System.out.printf("%1s%5s%47s", "= ", "8. Exit ", "=\n");
+		System.out.printf("%1s%5s%20s", "= ", "3. View Scheduled Intentions a mass", "=\n");
+		System.out.printf("%1s%5s%32s", "= ", "4. Create New Schedule ", "=\n");
+		System.out.printf("%1s%5s%25s", "= ", "5. Schedule intention for mass", "=\n");
+		System.out.printf("%1s%5s%37s", "= ", "6. Add New Priest ", "=\n");
+		System.out.printf("%1s%5s%45s", "= ", "7. Update ", "=\n");
+		System.out.printf("%1s%5s%45s", "= ", "8. Delete ", "=\n");
+		System.out.printf("%1s%5s%47s", "= ", "9. Exit ", "=\n");
 		System.out.println("========================================================");
 		System.out.print("  Enter choice: ");
 		choice = scan.nextInt();
@@ -141,21 +142,25 @@ public class ParishSchedulerConsole {
 				viewPriestSched();
 				break;
 			case 3:
-				enterSchedule();
+				ResultSet rs = null;
+				printMassIntention(rs);
 				break;
 			case 4:
-				scheduleIntention();
+				enterSchedule();
 				break;
 			case 5:
-				addNewPriest();
+				scheduleIntention();
 				break;
 			case 6:
-				update();
+				addNewPriest();
 				break;
 			case 7:
-				deleteMenu();
+				update();
 				break;
 			case 8:
+				deleteMenu();
+				break;
+			case 9:
 				System.out.println("Thank you for using our program.");
 				System.exit(0);
 			default:
