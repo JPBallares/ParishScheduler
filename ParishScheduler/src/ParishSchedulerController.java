@@ -141,7 +141,7 @@ public class ParishSchedulerController {
     	ps.executeUpdate();
     }
 	
-	public void updateNumberInfo(String col, int row, String replacement) throws Exception {
+	public void updateMassSched(String col, int row, String replacement) throws Exception {
 		sql = "select * from masssched";
 		ps = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		resultSet = ps.executeQuery();

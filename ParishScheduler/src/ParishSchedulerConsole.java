@@ -681,7 +681,7 @@ public class ParishSchedulerConsole {
 							notValid = false;
 						}
 
-						controller.updateNumberInfo("date", row, replacement);
+						controller.updateMassSched("date", row, replacement);
 						break;
 					case "time":
 						System.out.print("Enter time replacement (Ex. 7:00, 16:00): ");
@@ -694,7 +694,7 @@ public class ParishSchedulerConsole {
 							replacement += ":00";
 							notValid = false;
 						}
-						controller.updateNumberInfo("time", row, replacement);
+						controller.updateMassSched("time", row, replacement);
 						break;
 					case "scheduled priest":
 						System.out.print("Enter Priest name (Ex. Burgos, Jose): ");
@@ -715,12 +715,12 @@ public class ParishSchedulerConsole {
 							e.printStackTrace();
 						}
 						priestRs.next();
-						controller.updateNumberInfo("priest_id", row, priestRs.getString("priest_id"));
+						controller.updateMassSched("priest_id", row, priestRs.getString("priest_id"));
 						break;
 					case "type":
 						System.out.print("Enter mass type : ");
 						replacement = scan.nextLine();
-						controller.updateNumberInfo("mass_type", row, replacement);
+						controller.updateMassSched("mass_type", row, replacement);
 						notValid = false;
 						break;
 					default:
