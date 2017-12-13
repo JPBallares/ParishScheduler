@@ -41,7 +41,7 @@ public class ParishSchedulerConsole {
 		choice = scan.nextInt();
 		return choice;
 	}
-	
+
 	public static void updateMenu() {
 		int choice;
 		System.out.println("1. Update Mass Schedule");
@@ -61,16 +61,16 @@ public class ParishSchedulerConsole {
 			choice = scan.nextInt();
 		}
 	}
-	
+
 	public static void deleteMenu() {
 		int choice;
-		
+
 		do {
 			System.out.println("1. Delete Mass Schedule");
 			System.out.println("2. Delete Mass Intension");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
-			
+
 			switch (choice) {
 			case 1:
 				break;
@@ -79,7 +79,7 @@ public class ParishSchedulerConsole {
 			default:
 				System.out.println("Please choose from numbers 1 to 2.");
 			}
-		} while(choice > 2 && choice < 1);
+		} while (choice > 2 && choice < 1);
 	}
 
 	public static void run() {
@@ -97,7 +97,7 @@ public class ParishSchedulerConsole {
 		case 2:
 			viewPriestSched();
 			break;
-		case 3: 
+		case 3:
 			scheduleIntention();
 			break;
 		case 4:
@@ -111,7 +111,7 @@ public class ParishSchedulerConsole {
 		case 5:
 			System.out.println("Thank you for using our program.");
 			System.exit(0);
-			
+
 		}
 	}
 
@@ -136,7 +136,7 @@ public class ParishSchedulerConsole {
 			System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
 		}
 	}
-	
+
 	private static void printPriestSched(ResultSet rs) {
 		try {
 			if (getResTotal(rs) == 0) {
@@ -157,7 +157,7 @@ public class ParishSchedulerConsole {
 			System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
 		}
 	}
-	
+
 	public static void viewPriestSched() {
 		System.out.print("Enter priest name (ex. Burgos, Jose): ");
 		scan.nextLine();
@@ -175,9 +175,7 @@ public class ParishSchedulerConsole {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
 
 	public static void enterSchedule() {
@@ -256,23 +254,6 @@ public class ParishSchedulerConsole {
 			e.printStackTrace();
 		}
 
-	}
-
-	public static String incrementID(ResultSet rs, String startingLetter) {
-		String iD = "";
-		try {
-			if (getResTotal(rs) == 0) {
-				iD += "001";
-			} else {
-				rs.last();
-				iD = rs.getString(1);
-				iD = startingLetter + String.format("%03d", (Integer.parseInt(iD.substring(1)) + 1));
-			}
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return iD;
 	}
 
 	public static void scheduleIntention() {
@@ -359,9 +340,9 @@ public class ParishSchedulerConsole {
 		System.out.print("Enter the priest name (ex. Burgos, Jose): ");
 		name = scan.nextLine();
 		String[] splittedName = name.split(",");
-		
+
 		ResultSet rs = null;
-		
+
 		try {
 			rs = controller.getAllPriest();
 			priestID = incrementID(rs, "P");
@@ -369,7 +350,7 @@ public class ParishSchedulerConsole {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			controller.createPriestInfo(priestID, splittedName[0].trim(), splittedName[1].trim());
 		} catch (Exception e) {
@@ -377,7 +358,46 @@ public class ParishSchedulerConsole {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static void removePriest() {
+		String priestID = "";
+		String name = "";
+		System.out.print("Enter the priest name (ex. Burgos, Jose): ");
+		name = scan.nextLine();
+		String[] splittedName = name.split(",");
+
+		ResultSet rs = null;
+
+		try {
+			rs = controller.getPriestInfo(splittedName[0].trim(), splittedName[1].trim());
+			if (getResTotal(rs) == 0) {
+				System.out.println("Priest not found!");
+			} else {
+				controller.deletePriestInfo(splittedName[0].trim(), splittedName[1].trim());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static String incrementID(ResultSet rs, String startingLetter) {
+		String iD = "";
+		try {
+			if (getResTotal(rs) == 0) {
+				iD += "001";
+			} else {
+				rs.last();
+				iD = rs.getString(1);
+				iD = startingLetter + String.format("%03d", (Integer.parseInt(iD.substring(1)) + 1));
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return iD;
+	}
+
 	private static int getResTotal(ResultSet rs) throws Exception {
 		int count = 0;
 		rs.last();

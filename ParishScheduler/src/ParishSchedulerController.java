@@ -111,6 +111,21 @@ public class ParishSchedulerController {
         return ps.executeQuery();
 	}
 	
+	public void deletePriestInfo(String lName, String fName) throws Exception {
+    	sql = "delete from priest where l_name = ? and f_name = ?";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, lName);
+    	ps.setString(2, fName);
+    	ps.executeUpdate();
+    }
+	
+	public void deleteMassSched(String date, String time) throws Exception {
+    	sql = "delete from masssched where date = ? and time = ?";
+    	ps = connection.prepareStatement(sql);
+    	ps.setString(1, date);
+    	ps.setString(2, time);
+    	ps.executeUpdate();
+    }
 	
 	public void close() {
         try {
