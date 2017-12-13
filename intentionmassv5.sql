@@ -39,7 +39,7 @@ CREATE TABLE `intention` (
 
 LOCK TABLES `intention` WRITE;
 /*!40000 ALTER TABLE `intention` DISABLE KEYS */;
-INSERT INTO `intention` VALUES ('I001','Thanksgiving Ma','Michael Jackson','Thank you for the blessings.'),('I002','Prayer for the ','Jose Rizal','Rest in Peace.'),('I003','Thank you','Juan Cruz','Thank you juan cruz'),('I004','Thanks Giving','Juan Dela Cruz','Thank you for your support to my family');
+INSERT INTO `intention` VALUES ('I001','Thanksgiving Ma','Michael Jackson','Thank you for the blessings.'),('I002','Prayer for the ','Jose Rizal','Rest in Peace.'),('I003','Thank you','Juan Cruz','Thank you juan cruz'),('I004','Thanks Giving','Juan Dela Cruz','Thank you for your support to my family'),('I005','thanks giving','Juan Dela Cruz','Thank you for your support in giving foods to the childrens');
 /*!40000 ALTER TABLE `intention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,7 @@ CREATE TABLE `mass_intentions` (
 
 LOCK TABLES `mass_intentions` WRITE;
 /*!40000 ALTER TABLE `mass_intentions` DISABLE KEYS */;
-INSERT INTO `mass_intentions` VALUES ('I004','001');
+INSERT INTO `mass_intentions` VALUES ('I001','S001'),('I005','S001'),('I005','S002');
 /*!40000 ALTER TABLE `mass_intentions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `masssched` (
 
 LOCK TABLES `masssched` WRITE;
 /*!40000 ALTER TABLE `masssched` DISABLE KEYS */;
-INSERT INTO `masssched` VALUES ('001','08:00:00','2017-12-12','Charity','P002');
+INSERT INTO `masssched` VALUES ('S001','08:00:00','2017-12-12','Regular','P001'),('S002','09:00:00','2017-12-12','Regular','P001');
 /*!40000 ALTER TABLE `masssched` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `priest` (
 
 LOCK TABLES `priest` WRITE;
 /*!40000 ALTER TABLE `priest` DISABLE KEYS */;
-INSERT INTO `priest` VALUES ('001','Jose','Burgos'),('P002','Antonio','Valencia');
+INSERT INTO `priest` VALUES ('P001','Jose','Burgos'),('P002','Antonio','Valencia');
 /*!40000 ALTER TABLE `priest` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-13 22:03:25
+-- Dump completed on 2017-12-13 22:53:46
