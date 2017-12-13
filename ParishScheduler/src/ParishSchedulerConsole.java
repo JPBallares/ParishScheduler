@@ -83,6 +83,7 @@ public class ParishSchedulerConsole {
 			
 			switch (choice) {
 			case 1:
+				updateMassSched();
 				break;
 			case 2:
 				break;
@@ -485,7 +486,8 @@ public class ParishSchedulerConsole {
 		} while (notValid);
 	}
 	
-	public void updateMassScehed() {
+	public static void updateMassSched() {
+		int row = 0;
 		ResultSet rs = null;
 		
 		try {
@@ -495,10 +497,26 @@ public class ParishSchedulerConsole {
 			e.printStackTrace();
 		}
 		printMassSched(rs);
-		
+		try {
+			if (getResTotal(rs) == 0) {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Enter the row to edit: ");
+		row = scan.nextInt();
+		scan.nextLine();
+		
+		
 	}
-
+	
+	/**
+	 * updateIntention 
+	 * update ung message or ung sched
+	 * */
+	
 	public static String incrementID(ResultSet rs, String startingLetter) {
 		String iD = "";
 		try {
