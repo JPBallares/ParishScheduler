@@ -179,6 +179,84 @@ public class ParishSchedulerConsole {
 
 	}
 
+	public static void scheduleNewIntention() {
+		String time;
+		String schedID = "";
+		String kind = "";
+		String to = "";
+		String message = "";
+		String intentionID = "";
+		boolean notValid = false;
+		do {
+			do {
+				System.out.print("Enter time of mass for the intention(Ex. 7:00, 16:00): ");
+				time = scan.nextLine();
+				if (!time.matches("[0-9]{1,2}:[0-9]{2}")) {
+					notValid = true;
+					System.out.println("Not a valid time!");
+				} else {
+					time += ":00";
+					notValid = false;
+				}
+			} while (notValid);
+
+			String date;
+			do {
+				System.out.print("Enter date of mass for the intention(YYYY-MM-DD): ");
+				date = scan.nextLine();
+				if (!date.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
+					notValid = true;
+					System.out.println("Not a valid date!");
+				} else {
+					notValid = false;
+				}
+			} while (notValid);
+
+			ResultSet rs = null;
+
+			try {
+				rs = controller.searchMassSched(date, time);
+				if (getResTotal(rs) == 0) {
+					System.out.println("The schedule doesn't exist");
+					notValid = true;
+				} else {
+					notValid = false;
+					rs.next();
+					schedID = rs.getString(1);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} while (notValid);
+
+		System.out.print("For whom this intentions is (ex. Juan Dela Cruz): ");
+		to = scan.nextLine();
+		System.out.print("Kind of intention : ");
+		kind = scan.nextLine();
+		System.out.print("Message : ");
+		message = scan.nextLine();
+		ResultSet rs = null;
+
+		try {
+			rs = controller.getAllIntention();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		intentionID = incrementID(rs, "I");
+
+		try {
+			controller.createIntention(intentionID, kind, to, message);
+			controller.createMassIntention(intentionID, schedID);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("Successfully added.");
+	}
+
 	private static void scheduleIntention() {
 		String schedID = "";
 		String time = "";
@@ -189,7 +267,7 @@ public class ParishSchedulerConsole {
 		System.out.println("Enter the row of the intention to use: ");
 		int row = scan.nextInt();
 		scan.nextLine();
-		
+
 		do {
 			System.out.print("Enter time of mass for the intention(Ex. 7:00, 16:00): ");
 			time = scan.nextLine();
@@ -212,7 +290,7 @@ public class ParishSchedulerConsole {
 				notValid = false;
 			}
 		} while (notValid);
-		
+
 		ResultSet schedRs = null;
 
 		try {
@@ -229,7 +307,7 @@ public class ParishSchedulerConsole {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			String intentionID = controller.getIntentionID(row);
 			controller.createMassIntention(intentionID, schedID);
@@ -237,7 +315,7 @@ public class ParishSchedulerConsole {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private static void printMassSched(ResultSet rs) {
@@ -463,84 +541,6 @@ public class ParishSchedulerConsole {
 			e.printStackTrace();
 		}
 
-	}
-
-	public static void scheduleNewIntention() {
-		String time;
-		String schedID = "";
-		String kind = "";
-		String to = "";
-		String message = "";
-		String intentionID = "";
-		boolean notValid = false;
-		do {
-			do {
-				System.out.print("Enter time of mass for the intention(Ex. 7:00, 16:00): ");
-				time = scan.nextLine();
-				if (!time.matches("[0-9]{1,2}:[0-9]{2}")) {
-					notValid = true;
-					System.out.println("Not a valid time!");
-				} else {
-					time += ":00";
-					notValid = false;
-				}
-			} while (notValid);
-
-			String date;
-			do {
-				System.out.print("Enter date of mass for the intention(YYYY-MM-DD): ");
-				date = scan.nextLine();
-				if (!date.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
-					notValid = true;
-					System.out.println("Not a valid date!");
-				} else {
-					notValid = false;
-				}
-			} while (notValid);
-
-			ResultSet rs = null;
-
-			try {
-				rs = controller.searchMassSched(date, time);
-				if (getResTotal(rs) == 0) {
-					System.out.println("The schedule doesn't exist");
-					notValid = true;
-				} else {
-					notValid = false;
-					rs.next();
-					schedID = rs.getString(1);
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} while (notValid);
-
-		System.out.print("For whom this intentions is (ex. Juan Dela Cruz): ");
-		to = scan.nextLine();
-		System.out.print("Kind of intention : ");
-		kind = scan.nextLine();
-		System.out.print("Message : ");
-		message = scan.nextLine();
-		ResultSet rs = null;
-
-		try {
-			rs = controller.getAllIntention();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		intentionID = incrementID(rs, "I");
-
-		try {
-			controller.createIntention(intentionID, kind, to, message);
-			controller.createMassIntention(intentionID, schedID);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println("Successfully added.");
 	}
 
 	public static void addNewPriest() {
