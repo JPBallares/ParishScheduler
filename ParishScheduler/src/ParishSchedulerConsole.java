@@ -101,7 +101,7 @@ public class ParishSchedulerConsole {
 
 		do {
 			System.out.println("1. Remove Priest");
-			System.out.println("2. Delete Mass Intension");
+			System.out.println("2. Delete Mass Schedule");
 			System.out.println("3. Cancel");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
@@ -484,6 +484,20 @@ public class ParishSchedulerConsole {
 			}
 		} while (notValid);
 	}
+	
+	public void updateMassScehed() {
+		ResultSet rs = null;
+		
+		try {
+			rs = controller.getAllSched();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		printMassSched(rs);
+		
+		System.out.println("Enter the row to edit: ");
+	}
 
 	public static String incrementID(ResultSet rs, String startingLetter) {
 		String iD = "";
@@ -509,5 +523,6 @@ public class ParishSchedulerConsole {
 		rs.beforeFirst();
 		return count;
 	}
+	
 
 }
