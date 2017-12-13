@@ -39,8 +39,10 @@ public class ParishSchedulerConsole {
 		System.out.println("========================================================");
 		System.out.print("  Enter choice: ");
 		choice = scan.nextInt();
+		System.out.println();
 		return choice;
 	}
+
 
 	public static void updateMenu() {
 		int choice;
@@ -57,12 +59,34 @@ public class ParishSchedulerConsole {
 			break;
 		default:
 			System.out.println("Please choose from numbers 1 to 2.");
-			System.out.println("1. Update Mass Schedule");
-			System.out.println("2. Update Mass Intension");
-			System.out.print("Enter choice : ");
-			choice = scan.nextInt();
 		}
 	}
+	
+	public static void update() {
+		int choice;
+		
+		do {
+
+			System.out.println("1. Update Mass Schedule");
+			System.out.println("2. Update Mass Intension");
+			System.out.println("3. Cancel");
+			System.out.print("Enter choice : ");
+			choice = scan.nextInt();
+			
+			switch (choice) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println();
+				System.out.println("Please choose from numbers 1 to 3.");
+			}
+		} while(choice < 1 || choice > 3);
+	}
+
 
 	public static void deleteMenu() {
 		int choice;
@@ -70,6 +94,7 @@ public class ParishSchedulerConsole {
 		do {
 			System.out.println("1. Delete Mass Schedule");
 			System.out.println("2. Delete Mass Intension");
+			System.out.println("3. Cancel");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
 
@@ -80,43 +105,59 @@ public class ParishSchedulerConsole {
 			case 2:
 				cancelMassSched();
 				break;
+			case 3:
+				break;
 			default:
-				System.out.println("Please choose from numbers 1 to 2.");
+				System.out.println();
+				System.out.println("Please choose from numbers 1 to 3.");
 			}
-		} while (choice > 2 && choice < 1);
+
+		} while(choice < 1 || choice > 3);
+
 	}
 
 	public static void run() {
 		int choice;
-		choice = showParishMenu();
-		switch (choice) {
-		case 1:
-			try {
-				printMassSched(controller.getMassSched());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		do {
+			choice = showParishMenu();
+			switch (choice) {
+			case 1:
+				try {
+					printMassSched(controller.getMassSched());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 2:
+				viewPriestSched();
+				break;
+			case 3: 
+				scan.nextLine();
+				enterSchedule();
+				break;
+			case 4:
+				scheduleIntention();
+				break;
+			case 5:
+				
+				break;
+			case 6:
+				update();
+				break;
+			case 7:
+				deleteMenu();
+				break;
+			case 8:
+				System.out.println("Thank you for using our program.");
+				System.exit(0);
+			default:
+				System.out.println();
+				System.out.println("Please choose from numbers 1 to 8.");
 			}
-			break;
-		case 2:
-			viewPriestSched();
-			break;
-		case 3:
-			scheduleIntention();
-			break;
-		case 4:
-			System.out.println("========================================================");
-			System.out.println("                   Enter New Schedule");
-			System.out.println("========================================================");
-			scan.nextLine();
-			enterSchedule();
-			System.out.println("========================================================");
-			break;
-		case 5:
-			System.out.println("Thank you for using our program.");
-			System.exit(0);
 
-		}
+		} while(choice < 1 || choice > 8);
+
 	}
 
 	private static void printMassSched(ResultSet rs) {
