@@ -91,6 +91,14 @@ public class ParishSchedulerController {
         return ps.executeQuery();
 	}
 	
+	public ResultSet searchMassIntention(String date, String time) throws Exception {
+		sql = "select kind, for_name, message from intention natural join masssched natural join mass_intentions where time = ? and date = ?";
+        ps = connection.prepareStatement(sql);
+        ps.setString(1, time);
+        ps.setString(2, date);
+        return ps.executeQuery();
+	}
+	
 	public ResultSet getMassSched() throws Exception {
 		statement = connection.createStatement();
         sql = "select date, time, mass_type, concat(f_name,\" \",l_name) as name "
