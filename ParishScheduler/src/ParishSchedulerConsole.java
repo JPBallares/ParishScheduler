@@ -194,21 +194,22 @@ public class ParishSchedulerConsole {
 	}
 	
 	private static void printMassIntention(ResultSet rs) {
-		String startTime;
+		String time;
+		String date;
 		boolean notValid = false;
 		do {
 			System.out.print("Enter start time (Ex. 7:00, 16:00): ");
-			startTime = scan.nextLine();
-			if (!startTime.matches("[0-9]{1,2}:[0-9]{2}")) {
+			time = scan.nextLine();
+			if (!time.matches("[0-9]{1,2}:[0-9]{2}")) {
 				notValid = true;
 				System.out.println("Not a valid time!");
 			} else {
-				startTime += ":00";
+				time += ":00";
 				notValid = false;
 			}
 		} while (notValid);
 
-		String date;
+		
 		do {
 			System.out.print("Enter date (YYYY-MM-DD): ");
 			date = scan.nextLine();
@@ -221,6 +222,7 @@ public class ParishSchedulerConsole {
 		} while (notValid);
 		
 		try {
+			rs = controller.searchMassIntention(date, time);
 			if (getResTotal(rs) == 0) {
 				System.out.println("There is no scheduled mass");
 			} else {
