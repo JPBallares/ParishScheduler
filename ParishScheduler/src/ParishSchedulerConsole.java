@@ -13,7 +13,11 @@ public class ParishSchedulerConsole {
 			String url = "jdbc:mysql://localhost/intentionmass?useSSL=false";
 			controller.dbaseConnect(url, "root", null);
 			psct = new ParishSchedulerConsole();
-			psct.run();
+			while (true) {
+				psct.run();
+				System.out.println("Press enter to continue...");
+				scan.nextLine();
+			}
 		} catch (SQLException e) {
 			System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
 		} catch (Exception e) {
@@ -39,6 +43,7 @@ public class ParishSchedulerConsole {
 		System.out.println("========================================================");
 		System.out.print("  Enter choice: ");
 		choice = scan.nextInt();
+		scan.nextLine();
 		System.out.println();
 		return choice;
 	}
@@ -50,6 +55,8 @@ public class ParishSchedulerConsole {
 		System.out.println("2. Update Mass Intension");
 		System.out.print("Enter choice : ");
 		choice = scan.nextInt();
+		scan.nextLine();
+		
 		switch (choice) {
 		case 1:
 			
@@ -72,6 +79,7 @@ public class ParishSchedulerConsole {
 			System.out.println("3. Cancel");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
+			scan.nextLine();
 			
 			switch (choice) {
 			case 1:
@@ -92,18 +100,19 @@ public class ParishSchedulerConsole {
 		int choice;
 
 		do {
-			System.out.println("1. Delete Mass Schedule");
+			System.out.println("1. Remove Priest");
 			System.out.println("2. Delete Mass Intension");
 			System.out.println("3. Cancel");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
+			scan.nextLine();
 
 			switch (choice) {
 			case 1: 
 				removePriest();
 				break;
 			case 2:
-				cancelMassSched();
+				removeMassSched();
 				break;
 			case 3:
 				break;
@@ -431,7 +440,7 @@ public class ParishSchedulerConsole {
 		} while (notValid);
 	}
 
-	public static void cancelMassSched() {
+	public static void removeMassSched() {
 		String time = "";
 		String date;
 		boolean notValid;
