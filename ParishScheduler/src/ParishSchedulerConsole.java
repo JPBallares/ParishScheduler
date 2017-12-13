@@ -39,6 +39,7 @@ public class ParishSchedulerConsole {
 		System.out.println("========================================================");
 		System.out.print("  Enter choice: ");
 		choice = scan.nextInt();
+		System.out.println();
 		return choice;
 	}
 	
