@@ -327,7 +327,7 @@ public class ParishSchedulerConsole {
 		do {
 			do {
 				System.out.print("Enter time of mass for the intention(Ex. 7:00, 16:00): ");
-				time = scan.next();
+				time = scan.nextLine();
 				if (!time.matches("[0-9]{1,2}:[0-9]{2}")) {
 					notValid = true;
 					System.out.println("Not a valid time!");
@@ -340,7 +340,7 @@ public class ParishSchedulerConsole {
 			String date;
 			do {
 				System.out.print("Enter date of mass for the intention(YYYY-MM-DD): ");
-				date = scan.next();
+				date = scan.nextLine();
 				if (!date.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
 					notValid = true;
 					System.out.println("Not a valid date!");
@@ -496,7 +496,7 @@ public class ParishSchedulerConsole {
 		ResultSet rs = null;
 		
 		try {
-			rs = controller.getAllSched();
+			rs = controller.getMassSched();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
