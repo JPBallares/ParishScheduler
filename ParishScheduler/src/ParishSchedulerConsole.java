@@ -28,15 +28,58 @@ public class ParishSchedulerConsole {
 		System.out.println("========================================================");
 		System.out.printf("%1s%29s%27s", "=", "MENU", "=\n");
 		System.out.println("========================================================");
-		System.out.printf("%1s%5s%34s", "= ", "1. View mass Schedule", "=\n");
+		System.out.printf("%1s%5s%34s", "= ", "1. View Mass Schedule", "=\n");
 		System.out.printf("%1s%5s%32s", "= ", "2. View Priest Schedule", "=\n");
-		System.out.printf("%1s%5s%25s", "= ", "3. Schedule intention for mass", "=\n");
-		System.out.printf("%1s%5s%32s", "= ", "4. Create New Schedule ", "=\n");
-		System.out.printf("%1s%5s%47s", "= ", "5. Exit ", "=\n");
+		System.out.printf("%1s%5s%32s", "= ", "3. Create New Schedule ", "=\n");
+		System.out.printf("%1s%5s%25s", "= ", "4. Schedule intention for mass", "=\n");
+		System.out.printf("%1s%5s%37s", "= ", "5. Add New Priest ", "=\n");
+		System.out.printf("%1s%5s%45s", "= ", "6. Update ", "=\n");
+		System.out.printf("%1s%5s%45s", "= ", "7. Delete ", "=\n");
+		System.out.printf("%1s%5s%47s", "= ", "8. Exit ", "=\n");
 		System.out.println("========================================================");
 		System.out.print("  Enter choice: ");
 		choice = scan.nextInt();
 		return choice;
+	}
+	
+	public static void updateMenu() {
+		int choice;
+		System.out.println("1. Update Mass Schedule");
+		System.out.println("2. Update Mass Intension");
+		System.out.print("Enter choice : ");
+		choice = scan.nextInt();
+		switch (choice) {
+		case 1:
+			break;
+		case 2:
+			break;
+		default:
+			System.out.println("Please choose from numbers 1 to 2.");
+			System.out.println("1. Update Mass Schedule");
+			System.out.println("2. Update Mass Intension");
+			System.out.print("Enter choice : ");
+			choice = scan.nextInt();
+		}
+	}
+	
+	public static void deleteMenu() {
+		int choice;
+		
+		do {
+			System.out.println("1. Delete Mass Schedule");
+			System.out.println("2. Delete Mass Intension");
+			System.out.print("Enter choice : ");
+			choice = scan.nextInt();
+			
+			switch (choice) {
+			case 1:
+				break;
+			case 2:
+				break;
+			default:
+				System.out.println("Please choose from numbers 1 to 2.");
+			}
+		} while(choice > 2 && choice < 1);
 	}
 
 	public static void run() {
@@ -52,6 +95,7 @@ public class ParishSchedulerConsole {
 			}
 			break;
 		case 2:
+			viewPriestSched();
 			break;
 		case 3: 
 			scheduleIntention();
@@ -67,13 +111,14 @@ public class ParishSchedulerConsole {
 		case 5:
 			System.out.println("Thank you for using our program.");
 			System.exit(0);
+			
 		}
 	}
 
 	private static void printMassSched(ResultSet rs) {
 		try {
 			if (getResTotal(rs) == 0) {
-				System.out.println("Error: name not found!!!");
+				System.out.println("There is no scheduled mass");
 			} else {
 				System.out.printf("     %-12s %-10s %-20s %-15s %n", "Date", "Time", "Scheduled Priest", "Type");
 				int row = 1;
@@ -90,6 +135,49 @@ public class ParishSchedulerConsole {
 		} catch (Exception e) {
 			System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
 		}
+	}
+	
+	private static void printPriestSched(ResultSet rs) {
+		try {
+			if (getResTotal(rs) == 0) {
+				System.out.println("No schedule found for this priest or priest doesn't exist");
+			} else {
+				System.out.printf("     %-12s %-10s %-15s %n", "Date", "Time", "Type");
+				int row = 1;
+				while (rs.next()) {
+					String time = rs.getString("time");
+					String date = rs.getString("date");
+					String type = rs.getString("mass_type");
+					System.out.printf("%-4d %-12s %-10s %-15s %n", row++, date, time, type);
+				}
+			}
+
+			System.out.println();
+		} catch (Exception e) {
+			System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
+		}
+	}
+	
+	public static void viewPriestSched() {
+		System.out.print("Enter priest name (ex. Burgos, Jose): ");
+		scan.nextLine();
+		String[] name = (scan.nextLine()).split(",");
+		ResultSet rs = null;
+		try {
+			rs = controller.getPriestSched(name[0].trim(), name[1].trim());
+			if (getResTotal(rs) > 0) {
+				System.out.println("========= " + name[1].trim() + " " + name[0].trim() + " =========");
+				printPriestSched(rs);
+			} else {
+				printPriestSched(rs);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 	public static void enterSchedule() {
@@ -125,7 +213,7 @@ public class ParishSchedulerConsole {
 		String priest;
 		ResultSet rs = null;
 		do {
-			System.out.print("Enter Priest name (Ex. Sales, Gilbert): ");
+			System.out.print("Enter Priest name (Ex. Burgos, Jose): ");
 			priest = scan.nextLine();
 			String[] name = priest.split(",");
 			try {

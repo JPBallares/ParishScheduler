@@ -93,10 +93,23 @@ public class ParishSchedulerController {
 	
 	public ResultSet getMassSched() throws Exception {
 		statement = connection.createStatement();
-        sql = "select date, time, mass_type, concat(f_name,\" \",l_name) as name from masssched natural join priest order by 1,2";
+        sql = "select date, time, mass_type, concat(f_name,\" \",l_name) as name "
+        		+ "from masssched natural join priest "
+        		+ "order by 1,2";
         return statement.executeQuery(sql);
 	}
 	
+	public ResultSet getPriestSched(String lName, String fName) throws Exception {
+		
+        sql = "select date, time, mass_type "
+        		+ "from masssched natural join priest "
+        		+ "where l_name = ? and f_name = ? "
+        		+ "order by 1,2";
+        ps = connection.prepareStatement(sql);
+        ps.setString(1, lName);
+        ps.setString(2, fName);
+        return ps.executeQuery();
+	}
 	
 	
 	public void close() {
