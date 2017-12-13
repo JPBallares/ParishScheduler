@@ -50,8 +50,10 @@ public class ParishSchedulerConsole {
 		choice = scan.nextInt();
 		switch (choice) {
 		case 1:
+			
 			break;
 		case 2:
+			
 			break;
 		default:
 			System.out.println("Please choose from numbers 1 to 2.");
@@ -72,9 +74,11 @@ public class ParishSchedulerConsole {
 			choice = scan.nextInt();
 
 			switch (choice) {
-			case 1:
+			case 1: 
+				removePriest();
 				break;
 			case 2:
+				cancelMassSched();
 				break;
 			default:
 				System.out.println("Please choose from numbers 1 to 2.");
@@ -292,7 +296,7 @@ public class ParishSchedulerConsole {
 			ResultSet rs = null;
 
 			try {
-				rs = controller.searchMassSched(time, date);
+				rs = controller.searchMassSched(date, time);
 				if (getResTotal(rs) == 0) {
 					System.out.println("The schedule doesn't exist");
 					notValid = true;
@@ -360,25 +364,75 @@ public class ParishSchedulerConsole {
 	}
 
 	public static void removePriest() {
-		String priestID = "";
+
+		boolean notValid = false;
 		String name = "";
-		System.out.print("Enter the priest name (ex. Burgos, Jose): ");
-		name = scan.nextLine();
-		String[] splittedName = name.split(",");
+		do {
+			System.out.print("Enter the priest name (ex. Burgos, Jose): ");
+			name = scan.nextLine();
+			String[] splittedName = name.split(",");
 
-		ResultSet rs = null;
+			ResultSet rs = null;
 
-		try {
-			rs = controller.getPriestInfo(splittedName[0].trim(), splittedName[1].trim());
-			if (getResTotal(rs) == 0) {
-				System.out.println("Priest not found!");
-			} else {
-				controller.deletePriestInfo(splittedName[0].trim(), splittedName[1].trim());
+			try {
+				rs = controller.getPriestInfo(splittedName[0].trim(), splittedName[1].trim());
+				if (getResTotal(rs) == 0) {
+					System.out.println("Priest not found!");
+					notValid = true;
+				} else {
+					controller.deletePriestInfo(splittedName[0].trim(), splittedName[1].trim());
+					notValid = false;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} while (notValid);
+	}
+
+	public static void cancelMassSched() {
+		String time = "";
+		String date;
+		boolean notValid;
+		ResultSet rs = null;
+		do {
+			do {
+				System.out.print("Enter time of mass for the intention(Ex. 7:00, 16:00): ");
+				time = scan.next();
+				if (!time.matches("[0-9]{1,2}:[0-9]{2}")) {
+					notValid = true;
+					System.out.println("Not a valid time!");
+				} else {
+					time += ":00";
+					notValid = false;
+				}
+			} while (notValid);
+
+			do {
+				System.out.print("Enter date of mass for the intention(YYYY-MM-DD): ");
+				date = scan.next();
+				if (!date.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
+					notValid = true;
+					System.out.println("Not a valid date!");
+				} else {
+					notValid = false;
+				}
+			} while (notValid);
+
+			try {
+				rs = controller.searchMassSched(date, time);
+				if (getResTotal(rs) == 0) {
+					System.out.println("The schedule doesn't exist");
+					notValid = true;
+				} else {
+					controller.deleteMassSched(date, time);
+					notValid = false;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} while (notValid);
 	}
 
 	public static String incrementID(ResultSet rs, String startingLetter) {

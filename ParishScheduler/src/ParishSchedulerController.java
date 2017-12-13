@@ -83,7 +83,7 @@ public class ParishSchedulerController {
         return statement.executeQuery(sql);
 	}
 	
-	public ResultSet searchMassSched(String time, String date) throws Exception {
+	public ResultSet searchMassSched(String date, String time) throws Exception {
 		sql = "select * from masssched where time = ? and date = ?";
         ps = connection.prepareStatement(sql);
         ps.setString(1, time);
