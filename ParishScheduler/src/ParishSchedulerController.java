@@ -65,6 +65,12 @@ public class ParishSchedulerController {
         return ps.executeQuery();
 	}
 	
+	public ResultSet getAllIntentions() throws Exception {
+		statement = connection.createStatement();
+        sql = "select * from intention";
+        return statement.executeQuery(sql);
+	}
+	
 	public ResultSet getAllSched() throws Exception {
 		statement = connection.createStatement();
         sql = "select * from masssched";
@@ -142,6 +148,14 @@ public class ParishSchedulerController {
 		resultSet.absolute(row);
 		resultSet.updateString(col, replacement);
 		resultSet.updateRow();
+	}
+	
+	public String getIntentionID(int row) throws Exception {
+		sql = "select * from intention";
+		ps = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		resultSet = ps.executeQuery();
+		resultSet.absolute(row);
+		return resultSet.getString("in_id");
 	}
 	
 	public void close() {
