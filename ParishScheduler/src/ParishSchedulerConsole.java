@@ -60,6 +60,7 @@ public class ParishSchedulerConsole {
 			case 3:
 				break;
 			default:
+				System.out.println();
 				System.out.println("Please choose from numbers 1 to 3.");
 			}
 		} while(choice < 1 || choice > 3);
@@ -83,6 +84,7 @@ public class ParishSchedulerConsole {
 			case 3:
 				break;
 			default:
+				System.out.println();
 				System.out.println("Please choose from numbers 1 to 3.");
 			}
 		} while(choice < 1 || choice > 3);
@@ -90,45 +92,44 @@ public class ParishSchedulerConsole {
 
 	public static void run() {
 		int choice;
-		choice = showParishMenu();
-		switch (choice) {
-		case 1:
-			try {
-				printMassSched(controller.getMassSched());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		do {
+			choice = showParishMenu();
+			switch (choice) {
+			case 1:
+				try {
+					printMassSched(controller.getMassSched());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 2:
+				viewPriestSched();
+				break;
+			case 3: 
+				scan.nextLine();
+				enterSchedule();
+				break;
+			case 4:
+				scheduleIntention();
+				break;
+			case 5:
+				
+				break;
+			case 6:
+				update();
+				break;
+			case 7:
+				delete();
+				break;
+			case 8:
+				System.out.println("Thank you for using our program.");
+				System.exit(0);
+			default:
+				System.out.println();
+				System.out.println("Please choose from numbers 1 to 8.");
 			}
-			break;
-		case 2:
-			viewPriestSched();
-			break;
-		case 3: 
-			System.out.println("========================================================");
-			System.out.println("                   Enter New Schedule");
-			System.out.println("========================================================");
-			scan.nextLine();
-			enterSchedule();
-			System.out.println("========================================================");
-			break;
-		case 4:
-			scheduleIntention();
-			break;
-		case 5:
-			
-			break;
-		case 6:
-			update();
-			break;
-		case 7:
-			delete();
-			break;
-		case 8:
-			System.out.println("Thank you for using our program.");
-			System.exit(0);
-		default:
-			System.out.println("Please choose from numbers 1 to 5.");
-		}
+		} while(choice < 1 || choice > 8);
 	}
 
 	private static void printMassSched(ResultSet rs) {
