@@ -42,8 +42,8 @@ public class ParishSchedulerConsole {
 		return choice;
 	}
 	
-	public static void updateMenu() {
-int choice;
+	public static void update() {
+		int choice;
 		
 		do {
 			System.out.println("1. Update Mass Schedule");
@@ -62,7 +62,7 @@ int choice;
 		} while(choice > 2 && choice < 1);
 	}
 	
-	public static void deleteMenu() {
+	public static void delete() {
 		int choice;
 		
 		do {
@@ -98,9 +98,6 @@ int choice;
 			viewPriestSched();
 			break;
 		case 3: 
-			scheduleIntention();
-			break;
-		case 4:
 			System.out.println("========================================================");
 			System.out.println("                   Enter New Schedule");
 			System.out.println("========================================================");
@@ -108,10 +105,23 @@ int choice;
 			enterSchedule();
 			System.out.println("========================================================");
 			break;
+		case 4:
+			scheduleIntention();
+			break;
 		case 5:
+			
+			break;
+		case 6:
+			update();
+			break;
+		case 7:
+			delete();
+			break;
+		case 8:
 			System.out.println("Thank you for using our program.");
 			System.exit(0);
-			
+		default:
+			System.out.println("Please choose from numbers 1 to 5.");
 		}
 	}
 
