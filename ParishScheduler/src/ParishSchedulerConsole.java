@@ -48,6 +48,7 @@ public class ParishSchedulerConsole {
 		do {
 			System.out.println("1. Update Mass Schedule");
 			System.out.println("2. Update Mass Intension");
+			System.out.println("3. Cancel");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
 			
@@ -56,10 +57,12 @@ public class ParishSchedulerConsole {
 				break;
 			case 2:
 				break;
+			case 3:
+				break;
 			default:
-				System.out.println("Please choose from numbers 1 to 2.");
+				System.out.println("Please choose from numbers 1 to 3.");
 			}
-		} while(choice > 2 && choice < 1);
+		} while(choice < 1 || choice > 3);
 	}
 	
 	public static void delete() {
@@ -68,6 +71,7 @@ public class ParishSchedulerConsole {
 		do {
 			System.out.println("1. Delete Mass Schedule");
 			System.out.println("2. Delete Mass Intension");
+			System.out.println("3. Cancel");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
 			
@@ -76,10 +80,12 @@ public class ParishSchedulerConsole {
 				break;
 			case 2:
 				break;
+			case 3:
+				break;
 			default:
-				System.out.println("Please choose from numbers 1 to 2.");
+				System.out.println("Please choose from numbers 1 to 3.");
 			}
-		} while(choice > 2 && choice < 1);
+		} while(choice < 1 || choice > 3);
 	}
 
 	public static void run() {
