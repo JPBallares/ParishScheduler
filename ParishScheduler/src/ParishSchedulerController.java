@@ -34,8 +34,8 @@ public class ParishSchedulerController {
 		sql = "INSERT INTO `priest` (`priest_id`, `f_name`, `l_name`) VALUES (?, ?, ?);";
 		ps = connection.prepareStatement(sql);
 		ps.setString(1, priestID);
-		ps.setString(2, lastName);
-		ps.setString(3, firstName);
+		ps.setString(2, firstName);
+		ps.setString(3, lastName);
 		ps.execute();
 	}
 	

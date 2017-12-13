@@ -143,14 +143,13 @@ public class ParishSchedulerConsole {
 				viewPriestSched();
 				break;
 			case 3: 
-				scan.nextLine();
 				enterSchedule();
 				break;
 			case 4:
 				scheduleIntention();
 				break;
 			case 5:
-				
+				addNewPriest();
 				break;
 			case 6:
 				update();
@@ -175,6 +174,9 @@ public class ParishSchedulerConsole {
 			if (getResTotal(rs) == 0) {
 				System.out.println("There is no scheduled mass");
 			} else {
+				System.out.println("====================================================================");
+				System.out.println("                           Mass Schedules                           ");
+				System.out.println("--------------------------------------------------------------------");
 				System.out.printf("     %-12s %-10s %-20s %-15s %n", "Date", "Time", "Scheduled Priest", "Type");
 				int row = 1;
 				while (rs.next()) {
@@ -184,6 +186,7 @@ public class ParishSchedulerConsole {
 					String type = rs.getString("mass_type");
 					System.out.printf("%-4d %-12s %-10s %-20s %-15s %n", row++, date, time, name, type);
 				}
+				System.out.println("====================================================================");
 			}
 
 			System.out.println();
@@ -215,14 +218,16 @@ public class ParishSchedulerConsole {
 
 	public static void viewPriestSched() {
 		System.out.print("Enter priest name (ex. Burgos, Jose): ");
-		scan.nextLine();
 		String[] name = (scan.nextLine()).split(",");
 		ResultSet rs = null;
 		try {
 			rs = controller.getPriestSched(name[0].trim(), name[1].trim());
 			if (getResTotal(rs) > 0) {
-				System.out.println("========= " + name[1].trim() + " " + name[0].trim() + " =========");
+				System.out.println("==========================================");
+				System.out.println( "Priest: " + name[1].trim() + " " + name[0].trim());
+				System.out.println("==================Schedule================");
 				printPriestSched(rs);
+				System.out.println("==========================================");
 			} else {
 				printPriestSched(rs);
 			}
@@ -498,16 +503,16 @@ public class ParishSchedulerConsole {
 		}
 		printMassSched(rs);
 		try {
-			if (getResTotal(rs) == 0) {
-				
+			if (getResTotal(rs) != 0) {
+				System.out.println("Enter the row to edit: ");
+				row = scan.nextInt();
+				scan.nextLine();
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Enter the row to edit: ");
-		row = scan.nextInt();
-		scan.nextLine();
+		
 		
 		
 	}
