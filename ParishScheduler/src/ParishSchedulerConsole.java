@@ -192,7 +192,7 @@ public class ParishSchedulerConsole {
 			System.err.println("error: " + e.getClass() + "\n" + e.getMessage());
 		}
 	}
-	
+
 	private static void printMassIntention(ResultSet rs) {
 		String time;
 		String date;
@@ -209,7 +209,6 @@ public class ParishSchedulerConsole {
 			}
 		} while (notValid);
 
-		
 		do {
 			System.out.print("Enter date (YYYY-MM-DD): ");
 			date = scan.nextLine();
@@ -220,7 +219,7 @@ public class ParishSchedulerConsole {
 				notValid = false;
 			}
 		} while (notValid);
-		
+
 		try {
 			rs = controller.searchMassIntention(date, time);
 			if (getResTotal(rs) == 0) {
@@ -505,7 +504,7 @@ public class ParishSchedulerConsole {
 		do {
 			do {
 				System.out.print("Enter time of mass for the intention(Ex. 7:00, 16:00): ");
-				time = scan.next();
+				time = scan.nextLine();
 				if (!time.matches("[0-9]{1,2}:[0-9]{2}")) {
 					notValid = true;
 					System.out.println("Not a valid time!");
@@ -517,7 +516,7 @@ public class ParishSchedulerConsole {
 
 			do {
 				System.out.print("Enter date of mass for the intention(YYYY-MM-DD): ");
-				date = scan.next();
+				date = scan.nextLine();
 				if (!date.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
 					notValid = true;
 					System.out.println("Not a valid date!");
@@ -545,6 +544,9 @@ public class ParishSchedulerConsole {
 	public static void updateMassSched() {
 		boolean notValid = true;
 		int row = 0;
+		String col = "";
+		String replacement = "";
+
 		ResultSet rs = null;
 
 		try {
@@ -561,6 +563,72 @@ public class ParishSchedulerConsole {
 					System.out.println("Enter the row to edit: ");
 					row = scan.nextInt();
 					scan.nextLine();
+					if (row < 0 || row > getResTotal(rs)) {
+						notValid = true;
+						continue;
+					}
+
+					System.out.println("Enter the field to edit: ");
+					col = scan.nextLine();
+					switch (col.toLowerCase()) {
+					case "date":
+						System.out.print("Enter date replacement (YYYY-MM-DD): ");
+						replacement = scan.nextLine();
+						if (!replacement.matches("[0-9]{4}-[0-1][0-9]-[0-3][0-9]")) {
+							notValid = true;
+							System.out.println("Not a valid date!");
+							continue;
+						} else {
+							notValid = false;
+						}
+
+						controller.updateNumberInfo("date", row, replacement);
+						break;
+					case "time":
+						System.out.print("Enter time replacement (Ex. 7:00, 16:00): ");
+						replacement = scan.nextLine();
+						if (!replacement.matches("[0-9]{1,2}:[0-9]{2}")) {
+							notValid = true;
+							System.out.println("Not a valid time!");
+							continue;
+						} else {
+							replacement += ":00";
+							notValid = false;
+						}
+						controller.updateNumberInfo("time", row, replacement);
+						break;
+					case "scheduled priest":
+						System.out.print("Enter Priest name (Ex. Burgos, Jose): ");
+						replacement = scan.nextLine();
+						String[] name = replacement.split(",");
+						ResultSet priestRs = null;
+						try {
+							priestRs = controller.getPriestInfo(name[0].trim(), name[1].trim());
+							if (getResTotal(priestRs) == 0) {
+								System.out.println("Priest not found. Please enter an existing priest.");
+								notValid = true;
+								continue;
+							} else {
+								notValid = false;
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						priestRs.next();
+						controller.updateNumberInfo("priest_id", row, priestRs.getString("priest_id"));
+						break;
+					case "type":
+						System.out.print("Enter mass type : ");
+						replacement = scan.nextLine();
+						controller.updateNumberInfo("mass_type", row, replacement);
+						notValid = false;
+						break;
+					default:
+						notValid = true;
+						continue;
+					}
+
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
