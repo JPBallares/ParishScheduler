@@ -86,6 +86,7 @@ public class ParishSchedulerConsole {
 				updateMassSched();
 				break;
 			case 2:
+				updateIntention();
 				break;
 			case 3:
 				break;
@@ -240,7 +241,7 @@ public class ParishSchedulerConsole {
 		ResultSet rs = null;
 
 		try {
-			rs = controller.getAllIntention();
+			rs = controller.getAllIntentions();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -346,7 +347,7 @@ public class ParishSchedulerConsole {
 
 	public static void printAllIntention(ResultSet rs) {
 		try {
-			rs = controller.getAllIntention();
+			rs = controller.getAllIntentions();
 			if (getResTotal(rs) == 0) {
 				System.out.println("There is no scheduled mass");
 			} else {
@@ -398,7 +399,7 @@ public class ParishSchedulerConsole {
 		} while (notValid);
 
 		try {
-			rs = controller.getAllIntention();
+			rs = controller.getAllIntentions();
 			if (getResTotal(rs) == 0) {
 				System.out.println("There is no scheduled mass");
 			} else {
@@ -727,6 +728,53 @@ public class ParishSchedulerConsole {
 						notValid = true;
 						continue;
 					}
+
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} while (notValid);
+
+	}
+	
+	public static void updateIntention() {
+		boolean notValid = true;
+		int row = 0;
+		int col = 0;
+		String replacement = "";
+
+		ResultSet rs = null;
+
+		try {
+			rs = controller.getAllIntentions();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		do {
+			printAllIntention(rs);
+			try {
+				if (getResTotal(rs) != 0) {
+					System.out.println("Enter the row to edit: ");
+					row = Integer.parseInt(scan.nextLine());
+					if (row < 0 || row > getResTotal(rs)) {
+						notValid = true;
+						continue;
+					}
+
+					System.out.println("Enter the field to edit: ");
+					System.out.println("1. Type");
+					System.out.println("2. Dedicated To");
+					System.out.println("3. Message");
+					
+					col = Integer.parseInt(scan.nextLine());
+					System.out.println("Enter the replacement for the field: ");
+					replacement = scan.nextLine();
+					controller.updateIntentionInfo(col + 1, row, replacement);
+					notValid = false;
+					
 
 				}
 			} catch (Exception e) {

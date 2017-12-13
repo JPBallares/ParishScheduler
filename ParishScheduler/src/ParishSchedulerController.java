@@ -83,12 +83,6 @@ public class ParishSchedulerController {
         return statement.executeQuery(sql);
 	}
 	
-	public ResultSet getAllIntention() throws Exception {
-		statement = connection.createStatement();
-        sql = "select * from intention";
-        return statement.executeQuery(sql);
-	}
-	
 	public ResultSet searchMassSched(String date, String time) throws Exception {
 		sql = "select * from masssched where time = ? and date = ?";
         ps = connection.prepareStatement(sql);
@@ -146,6 +140,16 @@ public class ParishSchedulerController {
 		ps = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		resultSet = ps.executeQuery();
 		resultSet.absolute(row);
+		resultSet.updateString(col, replacement);
+		resultSet.updateRow();
+	}
+	
+	public void updateIntentionInfo(int col, int row, String replacement) throws Exception {
+		sql = "select * from intention";
+		ps = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		resultSet = ps.executeQuery();
+		resultSet.absolute(row);
+		resultSet.updateString(col, replacement);
 		resultSet.updateString(col, replacement);
 		resultSet.updateRow();
 	}
