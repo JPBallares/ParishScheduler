@@ -48,7 +48,6 @@ public class ParishSchedulerConsole {
 		return choice;
 	}
 
-
 	public static void updateMenu() {
 		int choice;
 		System.out.println("1. Update Mass Schedule");
@@ -56,22 +55,22 @@ public class ParishSchedulerConsole {
 		System.out.print("Enter choice : ");
 		choice = scan.nextInt();
 		scan.nextLine();
-		
+
 		switch (choice) {
 		case 1:
-			
+
 			break;
 		case 2:
-			
+
 			break;
 		default:
 			System.out.println("Please choose from numbers 1 to 2.");
 		}
 	}
-	
+
 	public static void update() {
 		int choice;
-		
+
 		do {
 
 			System.out.println("1. Update Mass Schedule");
@@ -80,7 +79,7 @@ public class ParishSchedulerConsole {
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
 			scan.nextLine();
-			
+
 			switch (choice) {
 			case 1:
 				updateMassSched();
@@ -93,9 +92,8 @@ public class ParishSchedulerConsole {
 				System.out.println();
 				System.out.println("Please choose from numbers 1 to 3.");
 			}
-		} while(choice < 1 || choice > 3);
+		} while (choice < 1 || choice > 3);
 	}
-
 
 	public static void deleteMenu() {
 		int choice;
@@ -109,7 +107,7 @@ public class ParishSchedulerConsole {
 			scan.nextLine();
 
 			switch (choice) {
-			case 1: 
+			case 1:
 				removePriest();
 				break;
 			case 2:
@@ -122,7 +120,7 @@ public class ParishSchedulerConsole {
 				System.out.println("Please choose from numbers 1 to 3.");
 			}
 
-		} while(choice < 1 || choice > 3);
+		} while (choice < 1 || choice > 3);
 
 	}
 
@@ -142,7 +140,7 @@ public class ParishSchedulerConsole {
 			case 2:
 				viewPriestSched();
 				break;
-			case 3: 
+			case 3:
 				enterSchedule();
 				break;
 			case 4:
@@ -165,7 +163,7 @@ public class ParishSchedulerConsole {
 				System.out.println("Please choose from numbers 1 to 8.");
 			}
 
-		} while(choice < 1 || choice > 8);
+		} while (choice < 1 || choice > 8);
 
 	}
 
@@ -224,7 +222,7 @@ public class ParishSchedulerConsole {
 			rs = controller.getPriestSched(name[0].trim(), name[1].trim());
 			if (getResTotal(rs) > 0) {
 				System.out.println("==========================================");
-				System.out.println( "Priest: " + name[1].trim() + " " + name[0].trim());
+				System.out.println("Priest: " + name[1].trim() + " " + name[0].trim());
 				System.out.println("==================Schedule================");
 				printPriestSched(rs);
 				System.out.println("==========================================");
@@ -490,38 +488,39 @@ public class ParishSchedulerConsole {
 			}
 		} while (notValid);
 	}
-	
+
 	public static void updateMassSched() {
+		boolean notValid = true;
 		int row = 0;
 		ResultSet rs = null;
-		
+
 		try {
 			rs = controller.getMassSched();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		printMassSched(rs);
-		try {
-			if (getResTotal(rs) != 0) {
-				System.out.println("Enter the row to edit: ");
-				row = scan.nextInt();
-				scan.nextLine();
+
+		do {
+			printMassSched(rs);
+			try {
+				if (getResTotal(rs) != 0) {
+					System.out.println("Enter the row to edit: ");
+					row = scan.nextInt();
+					scan.nextLine();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
+		} while (notValid);
+
 	}
-	
+
 	/**
-	 * updateIntention 
-	 * update ung message or ung sched
-	 * */
-	
+	 * updateIntention update ung message or ung sched
+	 */
+
 	public static String incrementID(ResultSet rs, String startingLetter) {
 		String iD = "";
 		try {
@@ -546,6 +545,5 @@ public class ParishSchedulerConsole {
 		rs.beforeFirst();
 		return count;
 	}
-	
 
 }
