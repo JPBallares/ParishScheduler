@@ -43,23 +43,23 @@ public class ParishSchedulerConsole {
 	}
 	
 	public static void updateMenu() {
-		int choice;
-		System.out.println("1. Update Mass Schedule");
-		System.out.println("2. Update Mass Intension");
-		System.out.print("Enter choice : ");
-		choice = scan.nextInt();
-		switch (choice) {
-		case 1:
-			break;
-		case 2:
-			break;
-		default:
-			System.out.println("Please choose from numbers 1 to 2.");
+int choice;
+		
+		do {
 			System.out.println("1. Update Mass Schedule");
 			System.out.println("2. Update Mass Intension");
 			System.out.print("Enter choice : ");
 			choice = scan.nextInt();
-		}
+			
+			switch (choice) {
+			case 1:
+				break;
+			case 2:
+				break;
+			default:
+				System.out.println("Please choose from numbers 1 to 2.");
+			}
+		} while(choice > 2 && choice < 1);
 	}
 	
 	public static void deleteMenu() {
