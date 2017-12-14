@@ -49,26 +49,6 @@ public class ParishSchedulerConsole {
 		return choice;
 	}
 
-	public static void updateMenu() {
-		int choice;
-		System.out.println("1. Update Mass Schedule");
-		System.out.println("2. Update Mass Intension");
-		System.out.print("Enter choice : ");
-		choice = scan.nextInt();
-		scan.nextLine();
-
-		switch (choice) {
-		case 1:
-
-			break;
-		case 2:
-
-			break;
-		default:
-			System.out.println("Please choose from numbers 1 to 2.");
-		}
-	}
-
 	public static void update() {
 		int choice;
 
